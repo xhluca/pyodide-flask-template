@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.17.0/full/pyodide.js"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+
+<body>
+    <div id="layout"></div>
+    <script>
+        async function main() {
+            await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.17.0/full/" });
+
+            pyodide.runPython(`
+                import sys
+                sys.path.insert(0, '.')
+
+                with open("my_module.py", "w") as fd:
+                    fd.write("foo = 42")
+
+                import my_module
+                print(my_module.foo)
+            `);
+        }
+
+        main();
+    </script>
+</body>
+
+</html>
